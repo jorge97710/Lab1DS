@@ -12,6 +12,8 @@ install.packages(c("psych","ggplot2","car","Hmisc","corrplot"))
 sample <- read.csv(file="sample_submission.csv", header=TRUE)
 test <- read.csv(file="test.csv", header=TRUE)
 train <- read.csv(file="train.csv", header=TRUE)
+
+
 summary(train)
 qplot(train$LotFrontage, geom="histogram",main = "Histograma de distancia lineal de calle conectada a la propiedad") 
 qplot(train$LotArea, geom="histogram",main = "Histograma de area en ft2 del lote") 
@@ -163,12 +165,13 @@ hc<-hclust(dist(train[,1:78])) #Genera el clustering jerárquico de los datos
 plot(hc) #Genera el dendograma
 rect.hclust(hc,k=3) 
 groups<-cutree(hc,k=3)
-datos$gruposHC<-groups
+
+train$gruposHC<-groups
 
 
-g1HC<-datos[datos$gruposHC==1,]
-g2HC<-datos[datos$gruposHC==2,]
-g3HC<-datos[datos$gruposHC==3,]
+g1HC<-train[train$gruposHC==1,]
+g2HC<-train[train$gruposHC==2,]
+g3HC<-train[train$gruposHC==3,]
 
 
 #Método de la silueta para clustering jerárquico
